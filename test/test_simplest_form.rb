@@ -42,15 +42,15 @@ class TestSimplestForm < Minitest::Test
   end
 
   def test_empty_form
-      user = User.new name: 'rob'
-      form = SimplestForm.form_for user
-      assert form == '<form action="#" method="post"></form>'
+    user = User.new name: "rob"
+    form = SimplestForm.form_for user
+    assert form == '<form action="#" method="post"></form>'
   end
 
   def test_form_with_url
-      user = User.new name: 'rob'
-      url = {url: '/users'}
-      form = SimplestForm.form_for user, url
-      assert form == '<form action="/users" method="post"></form>'
+    user = User.new name: "rob"
+    url = { url: "/users" }
+    form = SimplestForm.form_for user, url
+    assert form == '<form action="/users" method="post"></form>'
   end
 end
