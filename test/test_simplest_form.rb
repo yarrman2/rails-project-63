@@ -2,15 +2,13 @@
 
 require "test_helper"
 
+User = Struct.new(:name)
 class TestSimplestForm < Minitest::Test
   def setup
     @single_tags = %w[br hr input img]
     @tags = %w[p div label]
-
     @src = { src: "path/to/image" }
-
     @type = { type: "submit", value: "Save" }
-
     @label = { for: "email" }
   end
 
@@ -41,5 +39,18 @@ class TestSimplestForm < Minitest::Test
     label_tag_expected = '<label for="email">Email</label>'
     label_tag = SimplestForm::Tag.build("label", @label) { "Email" }
     assert label_tag == label_tag_expected
+  end
+
+  def test_empty_form
+      user = User.new name: 'rob'
+      form = SimplestForm.form_for user
+      assert form == '<form action="#" method="post"></form>'
+  end
+
+  def test_form_with_url
+      user = User.new name: 'rob'
+      url = {url: '/users'}
+      form = SimplestForm.form_for user, url
+      assert form == '<form action="/users" method="post"></form>'
   end
 end
