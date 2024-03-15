@@ -2,7 +2,8 @@
 
 require "test_helper"
 
-User = Struct.new(:name)
+User = Struct.new(:name, :job, :gender, keyword_init: true)
+
 class TestSimplestForm < Minitest::Test
   def setup
     @single_tags = %w[br hr input img]
@@ -52,5 +53,37 @@ class TestSimplestForm < Minitest::Test
     url = { url: "/users" }
     form = SimplestForm.form_for user, url
     assert form == '<form action="/users" method="post"></form>'
+  end
+
+  def test_form_with_options1
+    user = User.new name: "rob", job: "hexlet", gender: "m"
+    form = SimplestForm.form_for user do |f|
+      f.input :name
+      f.input :job, as: :text
+    end
+    form_expected = [
+      '<form action="#" method="post">',
+      '<input name="name" type="text" value="rob">',
+      '<textarea name="job" cols="20" rows="40">hexlet</textarea>',
+      "</form>"
+    ].join("")
+    assert form == form_expected
+  end
+
+  def test_form_with_options2
+    user = User.new name: "rob", job: "hexlet", gender: "m"
+    form = SimplestForm.form_for user do |f|
+      f.input :name, class: 'user-input'
+      f.input :job
+    end
+    puts form
+    form_expected = [
+      '<form action="#" method="post">',
+      '<input name="name" type="text" value="rob" class="user-input">',
+      '<input name="job" type="text" value="hexlet">',
+      '</form>'
+    ].join("")
+    puts form_expected
+    assert form == form_expected
   end
 end
