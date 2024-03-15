@@ -1,4 +1,4 @@
-[![Hexlet-check]]https://github.com/yarrman2/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg
+![Hexlet-check](https://github.com/yarrman2/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)
 
 # SimplestForm
 
