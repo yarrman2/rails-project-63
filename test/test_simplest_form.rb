@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require_relative "./mocks/form_mock"
 
 User = Struct.new(:name, :job, :gender, keyword_init: true)
 
 class TestSimplestForm < Minitest::Test
+  include FormMock
   def setup
     @single_tags = %w[br hr input img]
     @tags = %w[p div label]
@@ -13,29 +15,6 @@ class TestSimplestForm < Minitest::Test
     @label = { for: "email" }
 
     prepare_forms
-  end
-
-  def prepare_forms
-    prepare_form1
-    prepare_form2
-  end
-
-  def prepare_form1
-    @form_expected1 = [
-      '<form action="#" method="post">',
-      '<input name="name" type="text" value="rob">',
-      '<textarea name="job" cols="20" rows="40">hexlet</textarea>',
-      "</form>"
-    ].join("")
-  end
-
-  def prepare_form2
-    @form_expected2 = [
-      '<form action="#" method="post">',
-      '<input name="name" type="text" value="rob" class="user-input">',
-      '<input name="job" type="text" value="hexlet">',
-      "</form>"
-    ].join("")
   end
 
   def test_single_tag_without_parms
@@ -59,6 +38,14 @@ class TestSimplestForm < Minitest::Test
     assert SimplestForm::Tag.build "div" == "<div></div>"
     assert SimplestForm::Tag.build "p" == "<p></p>"
     assert SimplestForm::Tag.build "label" == "<label></label>"
+  end
+
+  def test_submit
+    assert SimplestForm::Tag.build "submit" == '<input type="submit">'
+    inp = SimplestForm::Tag.build "submit", "Value"
+    exp =  '<input type="submit" value="Value">'
+
+    assert inp == exp
   end
 
   def test_tags_with_params_with_body
@@ -96,5 +83,34 @@ class TestSimplestForm < Minitest::Test
       f.input :job
     end
     assert form == @form_expected2
+  end
+
+  def test_input_with_label
+    user = User.new name: "rob", job: "hexlet"
+    form = SimplestForm.form_for user do |f|
+      f.input :name
+    end
+    assert form == @form_expected5
+  end
+
+  def test_form_with_options3
+    user = User.new job: "hexlet"
+    form = SimplestForm.form_for user do |f|
+      f.input :name
+      f.input :job
+      f.submit
+    end
+    assert form == @form_expected3
+  end
+
+  def test_form_with_options4
+    user = User.new job: "hexlet"
+    form = SimplestForm.form_for user, url: "#" do |f|
+      f.input :name
+      f.input :job
+      f.submit "wow"
+    end
+
+    assert form == @form_expected4
   end
 end

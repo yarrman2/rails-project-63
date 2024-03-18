@@ -6,7 +6,7 @@ require_relative "simplest_form/tag"
 # Simplest Form
 module SimplestForm
   autoload(:Tag, "./lib/simplest_form/tag.rb")
-
+  @submit_tag = :submit
   def self.form_for(user, options = {}, &block)
     form_options = { action: "#", method: "post" }
 
@@ -24,8 +24,9 @@ module SimplestForm
 
   def self.form_inputs(fields, user)
     (fields.map do |field|
-       field_name = field[:field_name]
-       value = user.public_send(field_name)
+       field_name = field.fetch(:field_name, nil)
+       value = nil
+       value = user.public_send(field_name) unless field[:as] == @submit_tag
        opts = {
          name: field_name
        }
@@ -34,17 +35,30 @@ module SimplestForm
      end).join("")
   end
 
-  def self.create_tag(_field_name, value, opts, field)
+  def self.create_input(opts = {}, label = "")
+    input = Tag.build("input", opts)
+    name = opts.fetch(:name, "")
+    label = Tag.build("label", { for: name.to_s }) { name.capitalize } unless name.empty?
+
+    label + input
+  end
+
+  def self.create_textarea(opts, field, value)
+    opts[:cols] = 20
+    opts[:rows] = 40
+    Tag.build("textarea", opts.merge(field[:options])) { value }
+  end
+
+  def self.create_tag(field_name, value, opts, field)
     case field[:as]
     when :text
-      opts[:cols] = 20
-      opts[:rows] = 40
-
-      Tag.build("textarea", opts.merge(field[:options])) { value }
+      create_textarea opts, field, value
+    when :submit
+      Tag.build("submit", { value: field_name })
     else
       opts[:type] = "text"
       opts[:value] = value
-      Tag.build("input", opts.merge(field[:options]))
+      create_input(opts.merge(field[:options]))
     end
   end
 
@@ -64,6 +78,10 @@ module SimplestForm
         as: as_type,
         options: options
       }
+    end
+
+    def submit(title = "", _options = {})
+      input(title, { as: :submit })
     end
   end
 end
