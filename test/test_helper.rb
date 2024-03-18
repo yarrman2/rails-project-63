@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "simplest_form"
+require "hexlet_code"
 
 require "minitest/autorun"

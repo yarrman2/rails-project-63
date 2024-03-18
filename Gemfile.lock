@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simplest_form (0.1.0)
+    hexlet_code (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -42,7 +42,7 @@ DEPENDENCIES
   minitest (~> 5.0)
   rake (~> 13.0)
   rubocop (~> 1.21)
-  simplest_form!
+  hexlet_code!
 
 BUNDLED WITH
    2.3.7

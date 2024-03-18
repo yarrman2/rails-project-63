@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "simplest_form/version"
-require_relative "simplest_form/tag"
+require_relative "hexlet_code/version"
+require_relative "hexlet_code/tag"
 
 # Simplest Form
-module SimplestForm
-  autoload(:Tag, "./lib/simplest_form/tag.rb")
+module HexletCode
+  autoload(:Tag, "./lib/hexlet_code/tag.rb")
   @submit_tag = :submit
   def self.form_for(user, options = {}, &block)
     form_options = { action: "#", method: "post" }

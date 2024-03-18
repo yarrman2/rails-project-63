@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Semplest From extends
-module SimplestForm
+module HexletCode
   # Tag
   module Tag
     @single_tags = %w[br hr input img]

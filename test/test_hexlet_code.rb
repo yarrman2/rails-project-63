@@ -5,7 +5,7 @@ require_relative "./mocks/form_mock"
 
 User = Struct.new(:name, :job, :gender, keyword_init: true)
 
-class TestSimplestForm < Minitest::Test
+class TestHexletCode < Minitest::Test
   include FormMock
   def setup
     @single_tags = %w[br hr input img]
@@ -18,31 +18,31 @@ class TestSimplestForm < Minitest::Test
   end
 
   def test_single_tag_without_parms
-    assert SimplestForm::Tag.build "br" == "<br>"
-    assert SimplestForm::Tag.build "hr" == "<hr>"
-    assert SimplestForm::Tag.build "input" == "<input>"
-    assert SimplestForm::Tag.build "img" == "<img>"
+    assert HexletCode::Tag.build "br" == "<br>"
+    assert HexletCode::Tag.build "hr" == "<hr>"
+    assert HexletCode::Tag.build "input" == "<input>"
+    assert HexletCode::Tag.build "img" == "<img>"
   end
 
   def test_single_tag_with_parms
     input_tag_expected = %(<input type="#{@type[:type]}" value="#{@type[:value]}">)
-    input_tag = SimplestForm::Tag.build("input", @type)
+    input_tag = HexletCode::Tag.build("input", @type)
     assert input_tag == input_tag_expected
 
     img_tag_expected = %(<img src="#{@src[:src]}">)
-    img_tag = SimplestForm::Tag.build("img", @src)
+    img_tag = HexletCode::Tag.build("img", @src)
     assert img_tag == img_tag_expected
   end
 
   def test_tags_without_params
-    assert SimplestForm::Tag.build "div" == "<div></div>"
-    assert SimplestForm::Tag.build "p" == "<p></p>"
-    assert SimplestForm::Tag.build "label" == "<label></label>"
+    assert HexletCode::Tag.build "div" == "<div></div>"
+    assert HexletCode::Tag.build "p" == "<p></p>"
+    assert HexletCode::Tag.build "label" == "<label></label>"
   end
 
   def test_submit
-    assert SimplestForm::Tag.build "submit" == '<input type="submit">'
-    inp = SimplestForm::Tag.build "submit", "Value"
+    assert HexletCode::Tag.build "submit" == '<input type="submit">'
+    inp = HexletCode::Tag.build "submit", "Value"
     exp =  '<input type="submit" value="Value">'
 
     assert inp == exp
@@ -50,26 +50,26 @@ class TestSimplestForm < Minitest::Test
 
   def test_tags_with_params_with_body
     label_tag_expected = '<label for="email">Email</label>'
-    label_tag = SimplestForm::Tag.build("label", @label) { "Email" }
+    label_tag = HexletCode::Tag.build("label", @label) { "Email" }
     assert label_tag == label_tag_expected
   end
 
   def test_empty_form
     user = User.new name: "rob"
-    form = SimplestForm.form_for user
+    form = HexletCode.form_for user
     assert form == '<form action="#" method="post"></form>'
   end
 
   def test_form_with_url
     user = User.new name: "rob"
     url = { url: "/users" }
-    form = SimplestForm.form_for user, url
+    form = HexletCode.form_for user, url
     assert form == '<form action="/users" method="post"></form>'
   end
 
   def test_form_with_options1
     user = User.new name: "rob", job: "hexlet", gender: "m"
-    form = SimplestForm.form_for user do |f|
+    form = HexletCode.form_for user do |f|
       f.input :name
       f.input :job, as: :text
     end
@@ -78,7 +78,7 @@ class TestSimplestForm < Minitest::Test
 
   def test_form_with_options2
     user = User.new name: "rob", job: "hexlet", gender: "m"
-    form = SimplestForm.form_for user do |f|
+    form = HexletCode.form_for user do |f|
       f.input :name, class: "user-input"
       f.input :job
     end
@@ -87,7 +87,7 @@ class TestSimplestForm < Minitest::Test
 
   def test_input_with_label
     user = User.new name: "rob", job: "hexlet"
-    form = SimplestForm.form_for user do |f|
+    form = HexletCode.form_for user do |f|
       f.input :name
     end
     assert form == @form_expected5
@@ -95,7 +95,7 @@ class TestSimplestForm < Minitest::Test
 
   def test_form_with_options3
     user = User.new job: "hexlet"
-    form = SimplestForm.form_for user do |f|
+    form = HexletCode.form_for user do |f|
       f.input :name
       f.input :job
       f.submit
@@ -105,7 +105,7 @@ class TestSimplestForm < Minitest::Test
 
   def test_form_with_options4
     user = User.new job: "hexlet"
-    form = SimplestForm.form_for user, url: "#" do |f|
+    form = HexletCode.form_for user, url: "#" do |f|
       f.input :name
       f.input :job
       f.submit "wow"

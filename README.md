@@ -1,8 +1,9 @@
 ![Hexlet-check](https://github.com/yarrman2/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)
 ![CI status](https://github.com/yarrman2/rails-project-63/actions/workflows/main.yml/badge.svg)
-# SimplestForm
+# HexletCode
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/simplest_form`. To experiment with that code, run `bin/console` for an interactive prompt.
+
+Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hexlet_code`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem
 
@@ -11,7 +12,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simplest_form'
+gem 'hexlet_code'
 ```
 
 And then execute:
@@ -20,7 +21,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install simplest_form
+    $ gem install hexlet_code
 
 ## Usage
 
@@ -34,8 +35,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/simplest_form. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/simplest_form/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hexlet_code. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/hexlet_code/blob/master/CODE_OF_CONDUCT.md).
 
 ## Code of Conduct
 
-Everyone interacting in the SimplestForm project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/simplest_form/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the HexletCode project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/hexlet_code/blob/master/CODE_OF_CONDUCT.md).
