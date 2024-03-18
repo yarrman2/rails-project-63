@@ -11,6 +11,31 @@ class TestSimplestForm < Minitest::Test
     @src = { src: "path/to/image" }
     @type = { type: "submit", value: "Save" }
     @label = { for: "email" }
+
+    prepare_forms
+  end
+
+  def prepare_forms
+    prepare_form1
+    prepare_form2
+  end
+
+  def prepare_form1
+    @form_expected1 = [
+      '<form action="#" method="post">',
+      '<input name="name" type="text" value="rob">',
+      '<textarea name="job" cols="20" rows="40">hexlet</textarea>',
+      "</form>"
+    ].join("")
+  end
+
+  def prepare_form2
+    @form_expected2 = [
+      '<form action="#" method="post">',
+      '<input name="name" type="text" value="rob" class="user-input">',
+      '<input name="job" type="text" value="hexlet">',
+      "</form>"
+    ].join("")
   end
 
   def test_single_tag_without_parms
@@ -61,29 +86,15 @@ class TestSimplestForm < Minitest::Test
       f.input :name
       f.input :job, as: :text
     end
-    form_expected = [
-      '<form action="#" method="post">',
-      '<input name="name" type="text" value="rob">',
-      '<textarea name="job" cols="20" rows="40">hexlet</textarea>',
-      "</form>"
-    ].join("")
-    assert form == form_expected
+    assert form == @form_expected1
   end
 
   def test_form_with_options2
     user = User.new name: "rob", job: "hexlet", gender: "m"
     form = SimplestForm.form_for user do |f|
-      f.input :name, class: 'user-input'
+      f.input :name, class: "user-input"
       f.input :job
     end
-    puts form
-    form_expected = [
-      '<form action="#" method="post">',
-      '<input name="name" type="text" value="rob" class="user-input">',
-      '<input name="job" type="text" value="hexlet">',
-      '</form>'
-    ].join("")
-    puts form_expected
-    assert form == form_expected
+    assert form == @form_expected2
   end
 end
