@@ -8,7 +8,7 @@ module HexletCode
   autoload(:Tag, "./lib/hexlet_code/tag.rb")
   @submit_tag = :submit
   def self.form_for(user, options = {}, &block)
-    options.transform_keys!(:url => :action)
+    options.transform_keys!(url: :action)
     form_options = { action: "#", method: "post" }.merge(options)
 
     return Tag.build("form", form_options) if block.nil?
