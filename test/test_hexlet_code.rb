@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require_relative './mocks/form_mock'
+require_relative 'mocks/form_mock'
 
 User = Struct.new(:name, :job, :gender, keyword_init: true)
 
