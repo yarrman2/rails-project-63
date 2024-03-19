@@ -56,7 +56,7 @@ module FormMock
 
   def prepare_form2
     @form_expected2 = [
-      '<form action="#" method="post">',
+      '<form action="#" method="get">',
       '<label for="name">Name</label>',
       '<input name="name" type="text" value="rob" class="user-input">',
       '<label for="job">Job</label>',

@@ -78,7 +78,7 @@ class TestHexletCode < Minitest::Test
 
   def test_form_with_options2
     user = User.new name: "rob", job: "hexlet", gender: "m"
-    form = HexletCode.form_for user do |f|
+    form = HexletCode.form_for user, method: 'get' do |f|
       f.input :name, class: "user-input"
       f.input :job
     end
@@ -110,7 +110,6 @@ class TestHexletCode < Minitest::Test
       f.input :job
       f.submit "wow"
     end
-
     assert form == @form_expected4
   end
 end
