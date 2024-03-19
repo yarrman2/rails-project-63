@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require_relative "lib/hexlet_code/version"
+require_relative 'lib/hexlet_code/version'
 
 Gem::Specification.new do |spec|
-  spec.name = "hexlet_code"
+  spec.name = 'hexlet_code'
   spec.version = HexletCode::VERSION
-  spec.authors = ["Yarrrman"]
-  spec.email = ["yarrrman@yandex.ru"]
+  spec.authors = ['Yarrrman']
+  spec.email = ['yarrrman@yandex.ru']
 
-  spec.summary = "Simple way for creating html form"
-  spec.description = "Simple way for creating html form"
+  spec.summary = 'Simple way for creating html form'
+  spec.description = 'Simple way for creating html form'
   # spec.homepage = "TODO: Put your gem's website or public repo URL here."
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.required_ruby_version = '>= 3.2.0'
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 
@@ -26,9 +26,9 @@ Gem::Specification.new do |spec|
       (f == __FILE__) || f.match(%r{\A(?:(?:bin|test|spec|features)/|\.(?:git|travis|circleci)|appveyor)})
     end
   end
-  spec.bindir = "exe"
+  spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

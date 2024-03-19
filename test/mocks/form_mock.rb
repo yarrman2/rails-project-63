@@ -18,8 +18,8 @@ module FormMock
       '<label for="job">Job</label>',
       '<input name="job" type="text" value="hexlet">',
       '<input type="submit" value="Save">',
-      "</form>"
-    ].join("")
+      '</form>'
+    ].join
   end
 
   def prepare_form4
@@ -30,8 +30,8 @@ module FormMock
       '<label for="job">Job</label>',
       '<input name="job" type="text" value="hexlet">',
       '<input type="submit" value="Wow">',
-      "</form>"
-    ].join("")
+      '</form>'
+    ].join
   end
 
   def prepare_form5
@@ -39,8 +39,8 @@ module FormMock
       '<form action="#" method="post">',
       '<label for="name">Name</label>',
       '<input name="name" type="text" value="rob">',
-      "</form>"
-    ].join("")
+      '</form>'
+    ].join
   end
 
   def prepare_form1
@@ -50,8 +50,8 @@ module FormMock
       '<input name="name" type="text" value="rob">',
       '<label for="job">Job</label>',
       '<textarea name="job" cols="20" rows="40">hexlet</textarea>',
-      "</form>"
-    ].join("")
+      '</form>'
+    ].join
   end
 
   def prepare_form2
@@ -61,7 +61,7 @@ module FormMock
       '<input name="name" type="text" value="rob" class="user-input">',
       '<label for="job">Job</label>',
       '<input name="job" type="text" value="hexlet">',
-      "</form>"
-    ].join("")
+      '</form>'
+    ].join
   end
 end

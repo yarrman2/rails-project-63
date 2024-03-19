@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-require_relative "hexlet_code/version"
-require_relative "hexlet_code/tag"
+require_relative 'hexlet_code/version'
+require_relative 'hexlet_code/tag'
 
 # Simplest Form
 module HexletCode
-  autoload(:Tag, "./lib/hexlet_code/tag.rb")
+  autoload(:Tag, './lib/hexlet_code/tag.rb')
   @submit_tag = :submit
   def self.form_for(user, options = {}, &block)
     options.transform_keys!(url: :action)
-    form_options = { action: "#", method: "post" }.merge(options)
+    form_options = { action: '#', method: 'post' }.merge(options)
 
-    return Tag.build("form", form_options) if block.nil?
+    return Tag.build('form', form_options) if block.nil?
 
     f = Form.new
     block.call(f)
 
-    Tag.build("form", form_options) do
+    Tag.build('form', form_options) do
       form_inputs f.fields, user
     end
   end
@@ -31,13 +31,13 @@ module HexletCode
        }
 
        create_tag field_name, value, opts, field
-     end).join("")
+     end).join
   end
 
-  def self.create_input(opts = {}, label = "")
-    input = Tag.build("input", opts)
-    name = opts.fetch(:name, "")
-    label = Tag.build("label", { for: name.to_s }) { name.capitalize } unless name.empty?
+  def self.create_input(opts = {}, label = '')
+    input = Tag.build('input', opts)
+    name = opts.fetch(:name, '')
+    label = Tag.build('label', { for: name.to_s }) { name.capitalize } unless name.empty?
 
     label + input
   end
@@ -45,9 +45,9 @@ module HexletCode
   def self.create_textarea(opts, field, value)
     opts[:cols] = 20
     opts[:rows] = 40
-    name = opts.fetch(:name, "")
-    label = Tag.build("label", { for: name.to_s }) { name.capitalize } unless name.empty?
-    textarea = Tag.build("textarea", opts.merge(field[:options])) { value }
+    name = opts.fetch(:name, '')
+    label = Tag.build('label', { for: name.to_s }) { name.capitalize } unless name.empty?
+    textarea = Tag.build('textarea', opts.merge(field[:options])) { value }
     label + textarea
   end
 
@@ -56,9 +56,9 @@ module HexletCode
     when :text
       create_textarea opts, field, value
     when :submit
-      Tag.build("submit", { value: field_name })
+      Tag.build('submit', { value: field_name })
     else
-      opts[:type] = "text"
+      opts[:type] = 'text'
       opts[:value] = value
       create_input(opts.merge(field[:options]))
     end
@@ -76,13 +76,13 @@ module HexletCode
       as_type = options.fetch(:as, nil)
       options.delete(:as)
       @fields << {
-        field_name: field_name,
+        field_name:,
         as: as_type,
-        options: options
+        options:
       }
     end
 
-    def submit(title = "", _options = {})
+    def submit(title = '', _options = {})
       input(title, { as: :submit })
     end
   end

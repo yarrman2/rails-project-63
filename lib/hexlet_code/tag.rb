@@ -6,16 +6,16 @@ module HexletCode
   module Tag
     @single_tags = %w[br hr input img]
     @tags = %w[p div label]
-    @submit_tag = "submit"
+    @submit_tag = 'submit'
 
     def self.build(tag_name, options = {}, &block)
       return submit(options) if tag_name == @submit_tag
 
-      attributes = options.map { |k, v| %(#{k}="#{v}") }.join(" ")
+      attributes = options.map { |k, v| %(#{k}="#{v}") }.join(' ')
       attributes = " #{attributes}" unless attributes.empty?
 
       open_tag = "<#{tag_name}#{attributes}>"
-      content = block.nil? ? "" : block.call
+      content = block.nil? ? '' : block.call
       close_tag = "</#{tag_name}>"
 
       return open_tag if @single_tags.include? tag_name
@@ -25,12 +25,12 @@ module HexletCode
 
     def self.submit(value = {})
       if value.nil?
-        value_field = "Save"
+        value_field = 'Save'
       elsif value.instance_of? String
         value_field = value
       else
         value_field = value.fetch(:value, nil)
-        value_field = "Save" if value_field.empty?
+        value_field = 'Save' if value_field.empty?
       end
       %(<input type="submit" value="#{value_field.capitalize}">)
     end
