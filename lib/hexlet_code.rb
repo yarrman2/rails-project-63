@@ -46,7 +46,10 @@ module HexletCode
   def self.create_textarea(opts, field, value)
     opts[:cols] = 20
     opts[:rows] = 40
-    Tag.build("textarea", opts.merge(field[:options])) { value }
+    name = opts.fetch(:name, "")
+    label = Tag.build("label", { for: name.to_s }) { name.capitalize } unless name.empty?
+    textarea = Tag.build("textarea", opts.merge(field[:options])) { value }
+    label + textarea
   end
 
   def self.create_tag(field_name, value, opts, field)
