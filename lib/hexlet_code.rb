@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require_relative 'hexlet_code/version'
-require_relative 'hexlet_code/tag'
 
 # Simplest Form
 module HexletCode
   autoload(:Tag, './lib/hexlet_code/tag.rb')
+  autoload(:Form, './lib/hexlet_code/form.rb')
+
   @submit_tag = :submit
-  def self.form_for(user, options = {}, &block)
+  def self.form_for(entity, options = {}, &block)
     options.transform_keys!(url: :action)
     form_options = { action: '#', method: 'post' }.merge(options)
 
@@ -17,15 +18,15 @@ module HexletCode
     block.call(f)
 
     Tag.build('form', form_options) do
-      form_inputs f.fields, user
+      form_inputs f.fields, entity
     end
   end
 
-  def self.form_inputs(fields, user)
+  def self.form_inputs(fields, entity)
     (fields.map do |field|
        field_name = field.fetch(:field_name, nil)
        value = nil
-       value = user.public_send(field_name) unless field[:as] == @submit_tag
+       value = entity.public_send(field_name) unless field[:as] == @submit_tag
        opts = {
          name: field_name
        }
@@ -61,29 +62,6 @@ module HexletCode
       opts[:type] = 'text'
       opts[:value] = value
       create_input(opts.merge(field[:options]))
-    end
-  end
-
-  # internal class for the form creating
-  class Form
-    attr_reader :fields
-
-    def initialize
-      @fields = []
-    end
-
-    def input(field_name, options = {})
-      as_type = options.fetch(:as, nil)
-      options.delete(:as)
-      @fields << {
-        field_name:,
-        as: as_type,
-        options:
-      }
-    end
-
-    def submit(title = '', _options = {})
-      input(title, { as: :submit })
     end
   end
 end
