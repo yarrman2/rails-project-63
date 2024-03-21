@@ -8,12 +8,6 @@ User = Struct.new(:name, :job, :gender, keyword_init: true)
 class TestHexletCode < Minitest::Test
   include FormMock
   def setup
-    @single_tags = %w[br hr input img]
-    @tags = %w[p div label]
-    @src = { src: 'path/to/image' }
-    @type = { type: 'submit', value: 'Save' }
-    @label = { for: 'email' }
-
     prepare_forms
   end
 
@@ -25,12 +19,14 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_single_tag_with_parms
-    input_tag_expected = %(<input type="#{@type[:type]}" value="#{@type[:value]}">)
-    input_tag = HexletCode::Tag.build('input', @type)
+    src = 'path/to/image'
+    type = { type: 'submit', value: 'Save' }
+    input_tag_expected = %(<input type="submit" value="Save">)
+    input_tag = HexletCode::Tag.build('input', type)
     assert input_tag == input_tag_expected
 
-    img_tag_expected = %(<img src="#{@src[:src]}">)
-    img_tag = HexletCode::Tag.build('img', @src)
+    img_tag_expected = %(<img src="#{src}">)
+    img_tag = HexletCode::Tag.build('img', src)
     assert img_tag == img_tag_expected
   end
 
@@ -49,8 +45,9 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_tags_with_params_with_body
+    label = { for: 'email' }
     label_tag_expected = '<label for="email">Email</label>'
-    label_tag = HexletCode::Tag.build('label', @label) { 'Email' }
+    label_tag = HexletCode::Tag.build('label', label) { 'Email' }
     assert label_tag == label_tag_expected
   end
 
