@@ -101,8 +101,8 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_with_options4
-    user = user.new job: 'hexlet'
-    form = hexletcode.form_for user, url: '#' do |f|
+    user = User.new job: 'hexlet'
+    form = HexletCode.form_for user, url: '#' do |f|
       f.input :name
       f.input :job
       f.submit 'wow'

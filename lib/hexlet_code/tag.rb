@@ -7,14 +7,14 @@ module HexletCode
     def self.build(tag_name, options = {}, &block)
       single_tags = %w[br hr input img]
 
-      attributes = options.map { |k, v| %(#{k}="#{v}") }.join(' ')
-      attributes = " #{attributes}" unless attributes.empty?
+      attributes = options.map { |k, v| %( #{k}="#{v}") }.join
 
       open_tag = "<#{tag_name}#{attributes}>"
-      content = block.nil? ? '' : block.call
-      close_tag = "</#{tag_name}>"
-
       return open_tag if single_tags.include? tag_name
+
+      content = block.call if block.given?
+
+      close_tag = "</#{tag_name}>"
 
       "#{open_tag}#{content}#{close_tag}"
     end
