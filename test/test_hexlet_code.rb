@@ -19,14 +19,14 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_single_tag_with_parms
-    src = 'path/to/image'
+    path = { src: 'path/to/image' }
     type = { type: 'submit', value: 'Save' }
     input_tag_expected = %(<input type="submit" value="Save">)
     input_tag = HexletCode::Tag.build('input', type)
     assert input_tag == input_tag_expected
 
-    img_tag_expected = %(<img src="#{src}">)
-    img_tag = HexletCode::Tag.build('img', src)
+    img_tag_expected = %(<img src="#{path[:src]}">)
+    img_tag = HexletCode::Tag.build('img', path)
     assert img_tag == img_tag_expected
   end
 
@@ -101,8 +101,8 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_with_options4
-    user = User.new job: 'hexlet'
-    form = HexletCode.form_for user, url: '#' do |f|
+    user = user.new job: 'hexlet'
+    form = hexletcode.form_for user, url: '#' do |f|
       f.input :name
       f.input :job
       f.submit 'wow'

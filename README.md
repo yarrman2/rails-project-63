@@ -1,11 +1,9 @@
 ![Hexlet-check](https://github.com/yarrman2/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)
 ![CI status](https://github.com/yarrman2/rails-project-63/actions/workflows/main.yml/badge.svg)
+
 # HexletCode
 
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hexlet_code`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Gem for the easy creating HTML form 
 
 ## Installation
 
@@ -17,7 +15,7 @@ gem 'hexlet_code'
 
 And then execute:
 
-    $ bundle install
+    $ make install
 
 Or install it yourself as:
 
@@ -25,18 +23,35 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby 
+User = Struct.new(:name, :job, :gender, keyword_init: true)
+user = user.new job: 'hexlet'
+form = hexletcode.form_for user, url: '#' do |f|
+    f.input :name
+    f.input :job
+    f.submit 'wow'
+end
+
+# <form action="#" method="post">
+#   <label for="name">Name</label>
+#   <input type="text" name="name" value="">
+#   <label for="job">Job</label>
+#   <input type="text" name="job" value="hexlet">
+#   <input type="submit" value="Wow">
+# </form>
+
+```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```make install```
+To install dependencies
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```make lint```
+Style linting
 
-## Contributing
+```make lint-fix```
+Style linting with fixing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hexlet_code. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/hexlet_code/blob/master/CODE_OF_CONDUCT.md).
-
-## Code of Conduct
-
-Everyone interacting in the HexletCode project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/hexlet_code/blob/master/CODE_OF_CONDUCT.md).
+```make test-project```
+start tests
