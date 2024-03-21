@@ -12,7 +12,7 @@ module HexletCode
       open_tag = "<#{tag_name}#{attributes}>"
       return open_tag if single_tags.include? tag_name
 
-      content = block.call if block.given?
+      content = block.call if block_given?
 
       close_tag = "</#{tag_name}>"
 
