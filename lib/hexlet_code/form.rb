@@ -11,17 +11,37 @@ module HexletCode
     end
 
     def input(field_name, options = {})
-      as_type = options.fetch(:as, nil)
-      options.delete(:as)
-      @fields << {
-        field_name:,
-        as: as_type,
-        options:
-      }
+      as = options.delete(:as) || :input
+
+      field({
+              options: { type: 'text', name: field_name.to_s }.merge(options),
+              config: {
+                entity_field: true,
+                row_name: field_name,
+                need_label: true,
+                as:
+              }
+            })
     end
 
-    def submit(title = '', _options = {})
-      input(title, { as: :submit })
+    def submit(value = nil, options = {})
+      as = options.delete(:as) || :input
+
+      value ||= 'Save'
+      field({
+              options: { type: 'submit', value: value.capitalize }.merge(options),
+              config: {
+                as:,
+                entity_field: false,
+                need_label: false
+              }
+            })
+    end
+
+    private
+
+    def field(opts)
+      @fields << opts
     end
   end
 end

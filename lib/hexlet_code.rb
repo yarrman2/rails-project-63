@@ -16,7 +16,6 @@ module HexletCode
 
     f = Form.new
     block.call(f)
-
     Tag.build('form', form_options) do
       form_inputs f.fields, entity
     end
@@ -24,44 +23,55 @@ module HexletCode
 
   def self.form_inputs(fields, entity)
     (fields.map do |field|
-       field_name = field.fetch(:field_name, nil)
-       value = nil
-       value = entity.public_send(field_name) unless field[:as] == @submit_tag
-       opts = {
-         name: field_name
-       }
+       config = field[:config]
 
-       create_tag field_name, value, opts, field
+       if config[:entity_field]
+         row_name = config[:row_name]
+         value = entity.public_send(row_name)
+         field[:options].merge!(value:)
+       end
+
+       create_tag field
      end).join
   end
 
-  def self.create_input(opts = {}, label = '')
-    input = Tag.build('input', opts)
-    name = opts.fetch(:name, '')
-    label = Tag.build('label', { for: name.to_s }) { name.capitalize } unless name.empty?
+  def self.create_input(options = {})
+    config = options[:config]
+    options = options[:options]
+    need_label = config[:need_label]
 
+    input = Tag.build('input', options)
+    return input unless need_label
+
+    name = options.fetch(:name, '')
+    label = Tag.build('label', { for: name }) { name.capitalize }
     label + input
   end
 
-  def self.create_textarea(opts, field, value)
-    opts[:cols] = 20
-    opts[:rows] = 40
-    name = opts.fetch(:name, '')
+  def self.prepare_text(options)
+    options[:cols] = 20
+    options[:rows] = 40
+
+    name = options.fetch(:name, '')
+    value = options.delete(:value) || ''
+    options.delete(:type)
+    [name, value, options]
+  end
+
+  def self.create_text(options)
+    config = options[:config]
+    need_label = config[:need_label]
+    name, value, options = prepare_text(options[:options])
+
+    textarea = Tag.build('textarea', options) { value }
+    return textarea unless need_label
+
     label = Tag.build('label', { for: name.to_s }) { name.capitalize } unless name.empty?
-    textarea = Tag.build('textarea', opts.merge(field[:options])) { value }
     label + textarea
   end
 
-  def self.create_tag(field_name, value, opts, field)
-    case field[:as]
-    when :text
-      create_textarea opts, field, value
-    when :submit
-      Tag.build('submit', { value: field_name })
-    else
-      opts[:type] = 'text'
-      opts[:value] = value
-      create_input(opts.merge(field[:options]))
-    end
+  def self.create_tag(options)
+    tag_name = options[:config][:as].to_s
+    send("create_#{tag_name}", options)
   end
 end

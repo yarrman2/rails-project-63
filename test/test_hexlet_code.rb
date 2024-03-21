@@ -41,8 +41,8 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_submit
-    assert HexletCode::Tag.build 'submit' == '<input type="submit">'
-    inp = HexletCode::Tag.build 'submit', 'Value'
+    assert HexletCode::Tag.build 'input', type: 'submit' == '<input type="submit">'
+    inp = HexletCode::Tag.build  'input', type: 'submit', value: 'Value'
     exp =  '<input type="submit" value="Value">'
 
     assert inp == exp

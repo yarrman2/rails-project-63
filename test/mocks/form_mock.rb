@@ -14,9 +14,9 @@ module FormMock
     @form_expected3 = [
       '<form action="#" method="post">',
       '<label for="name">Name</label>',
-      '<input name="name" type="text" value="">',
+      '<input type="text" name="name" value="">',
       '<label for="job">Job</label>',
-      '<input name="job" type="text" value="hexlet">',
+      '<input type="text" name="job" value="hexlet">',
       '<input type="submit" value="Save">',
       '</form>'
     ].join
@@ -26,9 +26,9 @@ module FormMock
     @form_expected4 = [
       '<form action="#" method="post">',
       '<label for="name">Name</label>',
-      '<input name="name" type="text" value="">',
+      '<input type="text" name="name" value="">',
       '<label for="job">Job</label>',
-      '<input name="job" type="text" value="hexlet">',
+      '<input type="text" name="job" value="hexlet">',
       '<input type="submit" value="Wow">',
       '</form>'
     ].join
@@ -38,7 +38,7 @@ module FormMock
     @form_expected5 = [
       '<form action="#" method="post">',
       '<label for="name">Name</label>',
-      '<input name="name" type="text" value="rob">',
+      '<input type="text" name="name" value="rob">',
       '</form>'
     ].join
   end
@@ -47,7 +47,7 @@ module FormMock
     @form_expected1 = [
       '<form action="#" method="post">',
       '<label for="name">Name</label>',
-      '<input name="name" type="text" value="rob">',
+      '<input type="text" name="name" value="rob">',
       '<label for="job">Job</label>',
       '<textarea name="job" cols="20" rows="40">hexlet</textarea>',
       '</form>'
@@ -58,9 +58,9 @@ module FormMock
     @form_expected2 = [
       '<form action="#" method="get">',
       '<label for="name">Name</label>',
-      '<input name="name" type="text" value="rob" class="user-input">',
+      '<input type="text" name="name" class="user-input" value="rob">',
       '<label for="job">Job</label>',
-      '<input name="job" type="text" value="hexlet">',
+      '<input type="text" name="job" value="hexlet">',
       '</form>'
     ].join
   end
