@@ -9,9 +9,9 @@ module HexletCode
   autoload(:Renderer, './lib/hexlet_code/render')
 
   def self.form_for(entity, options = {}, &block)
-    form = Form.new
+    form = HexletCode::Form.new
     block.call(form) if block_given?
 
-    Renderer.new(form, entity, options).render
+    HexletCode::Renderer.new(form, entity, options).render
   end
 end
