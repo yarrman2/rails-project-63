@@ -2,8 +2,8 @@
 
 # HexletCode
 module HexletCode
-  autoload(:TagInput, './lib/hexlet_code/tags/tag_input')
-  autoload(:TagText, './lib/hexlet_code/tags/tag_textarea')
+  autoload(:TagInput, 'hexlet_code/tags/tag_input')
+  autoload(:TagText, 'hexlet_code/tags/tag_textarea')
   # render class
   class Renderer
     def initialize(form, entity, options)
