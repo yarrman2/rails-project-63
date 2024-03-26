@@ -2,11 +2,10 @@
 
 require_relative 'hexlet_code/version'
 
-# Simplest Form
 module HexletCode
   autoload(:Tag, 'hexlet_code/tag')
-  autoload(:Form, 'hexlet_code/form')
-  autoload(:Renderer, 'hexlet_code/render')
+  autoload(:Form, 'hexlet_code/form/form')
+  autoload(:Renderer, 'hexlet_code/renderer')
 
   def self.form_for(entity, options = {}, &block)
     form = HexletCode::Form.new

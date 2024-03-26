@@ -1,22 +1,37 @@
 # frozen_string_literal: true
 
-# Semplest From extends
 module HexletCode
-  # Tag
   module Tag
-    def self.build(tag_name, options = {}, &block)
-      single_tags = %w[br hr input img]
+    SINGLE_TAGS = %w[br hr input img].freeze
+    OPTIONS_ORDER = %i[id type class name value].freeze
 
-      attributes = options.map { |k, v| %( #{k}="#{v}") }.join
+    def self.sorted_options(options)
+      sorted = Hash[*OPTIONS_ORDER.collect { |key| [key, nil] }.flatten]
+      sorted.merge(options).reject { |_, val| val.nil? }
+    end
 
-      open_tag = "<#{tag_name}#{attributes}>"
-      return open_tag if single_tags.include? tag_name
+    def self.create_open_tag(tag_name, attributes)
+      "<#{tag_name}#{attributes}>"
+    end
 
-      content = block.call if block_given?
+    def self.create_close_tag_tag(tag_name)
+      "</#{tag_name}>"
+    end
 
-      close_tag = "</#{tag_name}>"
-
+    def self.create_tag(open_tag, content, close_tag)
       "#{open_tag}#{content}#{close_tag}"
+    end
+
+    def self.build(tag_name, options = {}, &block)
+      attributes = sorted_options(options).map { |k, v| %( #{k}="#{v}") }.join
+
+      open_tag = create_open_tag(tag_name, attributes)
+      return open_tag if SINGLE_TAGS.include? tag_name
+
+      content = (block.call if block_given?) || ''
+      close_tag = create_close_tag_tag(tag_name)
+
+      create_tag(open_tag, content, close_tag)
     end
   end
 end

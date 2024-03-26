@@ -1,37 +1,20 @@
 # frozen_string_literal: true
 
-# HexletCode
 module HexletCode
-  # Tag Textarea
-  class TagText
-    def initialize(options)
-      @config = options[:config]
-      @name, @value, @options = prepare_text(options[:options])
-    end
-
+  class TagTextarea < BaseInput
     def build
-      create_label + create_text
+      build_with_label(create_textarea)
     end
 
-    def prepare_text(options)
-      options[:cols] = 20
-      options[:rows] = 40
-
-      name = options.fetch(:name, '')
-      value = options.delete(:value) || ''
-      options.delete(:type)
-      [name, value, options]
+    def prepare_options
+      {
+        cols: 20,
+        rows: 40
+      }.merge(@options)
     end
 
-    def create_label
-      return '' unless @config[:need_label]
-
-      @name ||= ''
-      HexletCode::Tag.build('label', { for: @name.to_s }) { @name.capitalize }
-    end
-
-    def create_text
-      HexletCode::Tag.build('textarea', @options) { @value }
+    def create_textarea
+      HexletCode::Tag.build('textarea', prepare_options) { @field.value }
     end
   end
 end
