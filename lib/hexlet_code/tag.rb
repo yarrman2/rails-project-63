@@ -7,7 +7,7 @@ module HexletCode
 
     def self.sorted_options(options)
       sorted = Hash[*OPTIONS_ORDER.collect { |key| [key, nil] }.flatten]
-      sorted.merge(options).reject { |_, val| val.nil? }
+      sorted.merge(options).compact
     end
 
     def self.create_open_tag(tag_name, attributes)

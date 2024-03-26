@@ -18,7 +18,7 @@ module HexletCode
         name: @name,
         value: @value,
         type: @type
-      ).reject { |_, val| val.nil? }
+      ).compact
     end
   end
 end
